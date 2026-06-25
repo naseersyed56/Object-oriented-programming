@@ -2,11 +2,12 @@
 #include<vector>
 using namespace std;
 
-class bank_account {
+class 
+{
 public:
-	virtual int deposiit(int a) = 0;
-	virtual int withdraw(int b) = 0;
-	virtual int display_balance() = 0;
+	virtual void deposit(int a) = 0;
+	virtual void withdraw(int b) = 0;
+	virtual void display_balance() = 0;
 	
 };
 
@@ -17,7 +18,7 @@ public:
 	int deposit_count = 0 ,deposit_tried =0;
 	int display_bal = 0 ;
 	int withdraw_count = 0, withdraw_tried =0;
-	int deposit(int amount) {
+	void deposit(int amount) {
 		deposit_tried++;
 		if (amount > 100000)cout << "demonstration should be less or equal to one lakh at a time \n ";
 
@@ -27,10 +28,10 @@ public:
 			deposit_count++;
 		}
 		else {
-			cout << "demonstration should be 10 || 200 || 500 \n";
+			cout << "demonstration notes should be multipple of 10\n";
 		}
 	}
-	int withdraw(int amount) {
+	void withdraw(int amount) {
 		withdraw_tried++;
 
 		if (amount <= 0)cout << "enter a valid amount \n";
@@ -52,20 +53,21 @@ public:
 		}
 	}
 		
-		int display_balance() {
+		void display_balance() {
 			cout << "the amount in account is  "<<amount;
 			display_bal++;
 		}
 
-		int count_details(){
+		void count_details(){
 
 			cout << " \n deposit count is \n" << deposit_count;
 			cout << " \n deposit tried count is \n "<<deposit_tried;
 			cout << "\n withdraw_tried count is \n " << withdraw_tried;
 			cout << "\n withdraw_count is \n " << withdraw_count;
-			cout << " \n display count is \n" << display_balance;
+			cout << " \n display count is \n" << display_bal;
 
 	}
+		
 };
 class current_account :public bank_account {
 private:
@@ -74,7 +76,7 @@ private:
 public:
 
 	int count_deposit = 0, deposit_tried = 0, withdraw_count = 0, withdraw_access_tried = 0, display_bal = 0, draft_amount_withdraw = 0;
-	int deposit(int amount) {
+	void deposit(int amount) {
 		deposit_tried++;
 		if (amount % 10 == 0) {
 			this->amount += amount;
@@ -85,7 +87,7 @@ public:
 			cout << "demonstriation should be in 100 || 200 || 500 \n";
 		}
 	}
-	int withdraw(int amount) {
+	void withdraw(int amount) {
 		withdraw_access_tried++;
 		if (this->amount >= amount && withdraw_count < 6) {
 			this->amount -= amount;
@@ -93,7 +95,7 @@ public:
 			withdraw_count++;
 		}
 		else if (draft_amount > 0 && this->amount + draft_amount >= amount && withdraw_count < 6) {
-			if (this->amount > amount) {
+			if (this->amount < amount) {
 				//amount is more than balance in acc and less than draft amount available in the acc .
 				int balance_amount = this->amount -= amount;
 				cout << amount << " amount withdrawn from acc \n";
@@ -109,13 +111,13 @@ public:
 			}
 		}
 	}
-	int display_balance() {
+	void display_balance() {
 
 		cout << amount << " balance amount \n";
 		display_bal++;
 	}
 
-	int count_details() {
+	void count_details() {
 		cout << count_deposit << " times deposited \n";
 		cout << deposit_tried << "times deposit tried \n";
 		cout << withdraw_count << "times withdrawn amount \n";
@@ -131,8 +133,24 @@ public:
 int main() {
 	
 	savings_account n ,j;
-	n.deposit(10);
-	j.withdraw(5);
-	j.display_balance();
+	current_account k, o;
+	o.withdraw(25000);
+	o.deposit(200);
+	o.withdraw(500);
+	o.withdraw(500);
+	o.withdraw(500);
+	o.withdraw(500);
+	o.withdraw(500);
+	o.count_details();
+	k.display_balance();
+	n.display_balance();
+	k.count_details();
+	n.count_details();
+	j.count_details();
+
+
+
+
+	
 
 }
